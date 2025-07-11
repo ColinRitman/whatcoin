@@ -1,0 +1,36 @@
+name: Cache Dependencies
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main, develop ]
+
+jobs:
+  cache-deps:
+    name: Cache Dependencies
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        
+    - name: Cache vcpkg dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/vcpkg
+          vcpkg_installed
+        key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/CMakeLists.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-vcpkg-
+          
+    - name: Cache build artifacts
+      uses: actions/cache@v4
+      with:
+        path: build/
+        key: ${{ runner.os }}-build-${{ hashFiles('**/CMakeLists.txt', '**/*.cpp', '**/*.h') }}
+        restore-keys: |
+          ${{ runner.os }}-build- 
