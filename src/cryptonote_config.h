@@ -41,7 +41,7 @@
 
 #define CRYPTONOTE_MAX_BLOCK_NUMBER                     500000000
 #define CRYPTONOTE_MAX_BLOCK_SIZE                       500000000  // block header blob limit, never used!
-#define CRYPTONOTE_GETBLOCKTEMPLATE_MAX_BLOCK_SIZE    	196608 //size of block (bytes) that is the maximum that miners will produce
+#define CRYPTONOTE_GETBLOCKTEMPLATE_MAX_BLOCK_SIZE      196608 //size of block (bytes) that is the maximum that miners will produce
 #define CRYPTONOTE_MAX_TX_SIZE                          1000000000
 #define CRYPTONOTE_PUBLIC_ADDRESS_TEXTBLOB_VER          0
 #define CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW            60
@@ -74,13 +74,14 @@ static_assert(STAKING_PORTIONS % 3 == 0, "Use a multiple of three, so that it di
 
 #define UPTIME_PROOF_BUFFER_IN_SECONDS                  (5*60) // The acceptable window of time to accept a peer's uptime proof from its reported timestamp
 #define UPTIME_PROOF_FREQUENCY_IN_SECONDS               (60*60)
-#define UPTIME_PROOF_MAX_TIME_IN_SECONDS		(UPTIME_PROOF_FREQUENCY_IN_SECONDS * 2 + UPTIME_PROOF_BUFFER_IN_SECONDS)
+#define UPTIME_PROOF_MAX_TIME_IN_SECONDS                (UPTIME_PROOF_FREQUENCY_IN_SECONDS * 2 + UPTIME_PROOF_BUFFER_IN_SECONDS)
 
 
 //////
 
-// MONEY_SUPPLY - total number coins to be generated
-#define MONEY_SUPPLY                                    ((uint64_t)(1050000000000))
+// MONEY_SUPPLY - total number coins to be generated (1 billion)
+#define MONEY_SUPPLY                                    ((uint64_t)(1000000000))
+// Initial emission: 4200 coins per block, halving at block 240,000, then at 420,000, then regular curve
 #define EMISSION_SPEED_FACTOR_PER_MINUTE                (22)
 #define FINAL_SUBSIDY_PER_MINUTE                        ((uint64_t)30)
 
@@ -94,7 +95,7 @@ static_assert(STAKING_PORTIONS % 3 == 0, "Use a multiple of three, so that it di
 #define COIN                                            ((uint64_t)1000000000000) // pow(10, 12)
 
 #define FEE_PER_KB_OLD                                  ((uint64_t)10000000000) // pow(10, 10)
-#define FEE_PER_KB                                      ((uint64_t)4000000000) // Wtf?
+#define FEE_PER_KB                                      ((uint64_t)24000000000) // 0.024 HUH per KB (420 in reverse 😂)
 #define FEE_PER_BYTE                                    ((uint64_t)300000)
 #define DYNAMIC_FEE_PER_KB_BASE_FEE                     ((uint64_t)2000000000) // 2 * pow(10,9)
 #define DYNAMIC_FEE_PER_KB_BASE_BLOCK_REWARD            ((uint64_t)10000000000000) // 10 * pow(10,12)
@@ -104,17 +105,18 @@ static_assert(STAKING_PORTIONS % 3 == 0, "Use a multiple of three, so that it di
 
 #define ORPHANED_BLOCKS_MAX_COUNT                       100
 
-#define DIFFICULTY_TARGET 			                        60 //seconds
+// WhatCoin: 2 minute block time (120 seconds)
+#define DIFFICULTY_TARGET                                               120 //seconds
 #define DIFFICULTY_TARGET_V2                            120  // seconds
-#define DIFFICULTY_TARGET_V1                            60  // seconds - before first fork
+#define DIFFICULTY_TARGET_V1                            120  // seconds - before first fork
 #define DIFFICULTY_WINDOW                               720 // blocks
 #define DIFFICULTY_LAG                                  15  // !!!
 #define DIFFICULTY_CUT                                  60  // timestamps to cut after sorting
 #define DIFFICULTY_BLOCKS_COUNT                         (DIFFICULTY_WINDOW + DIFFICULTY_LAG)
 
-#define DIFFICULTY_WINDOW_V2				120
-#define DIFFICULTY_CUT_V2				6
-#define DIFFICULTY_BLOCKS_COUNT_V2			(DIFFICULTY_WINDOW_V2 + 1)
+#define DIFFICULTY_WINDOW_V2                            120
+#define DIFFICULTY_CUT_V2                               6
+#define DIFFICULTY_BLOCKS_COUNT_V2                      (DIFFICULTY_WINDOW_V2 + 1)
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET_V1 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2   DIFFICULTY_TARGET_V2 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
@@ -159,7 +161,8 @@ static_assert(STAKING_PORTIONS % 3 == 0, "Use a multiple of three, so that it di
 
 #define ALLOW_DEBUG_COMMANDS
 
-#define CRYPTONOTE_NAME                         "uplexa"
+// WhatCoin configuration
+#define CRYPTONOTE_NAME                         "WhatCoin"
 #define CRYPTONOTE_POOLDATA_FILENAME            "poolstate.bin"
 #define CRYPTONOTE_BLOCKCHAINDATA_FILENAME      "data.mdb"
 #define CRYPTONOTE_BLOCKCHAINDATA_LOCK_FILENAME "lock.mdb"
@@ -192,25 +195,29 @@ namespace config
   uint64_t const BASE_REWARD_CLAMP_THRESHOLD = ((uint64_t)100000000); // pow(10, 8)
   std::string const P2P_REMOTE_DEBUG_TRUSTED_PUB_KEY = "0000000000000000000000000000000000000000000000000000000000000000";
 
-  uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 0x161f23;
-  uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 0x1661a3; //UPi
+  // WhatCoin address prefixes (using "what" or "huh" theme)
+  uint64_t const CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX = 0x1a2b3c; // "what" prefix
+  uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 0x1a2b3d; // "huh" prefix
   uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 294;
 
-  uint16_t const P2P_DEFAULT_PORT = 21060;
-  uint16_t const RPC_DEFAULT_PORT = 21061;
-  uint16_t const ZMQ_RPC_DEFAULT_PORT = 21062;
+  // WhatCoin ports: 24420, 24421, 24422
+  uint16_t const P2P_DEFAULT_PORT = 24420;
+  uint16_t const RPC_DEFAULT_PORT = 24421;
+  uint16_t const ZMQ_RPC_DEFAULT_PORT = 24422;
 
   boost::uuids::uuid const NETWORK_ID = { {
-      0xF1 ,0xF1, 0x00, 0x61 , 0x71, 0x01 , 0x41, 0x61, 0x00, 0x30, 0x82, 0xA1, 0x12, 0x16, 0xA1, 0xA1
-    } }; // Bender's nightmare
+      0x48, 0x55, 0x48, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    } }; // "HUH" network ID
     std::string const GENESIS_TX = "013c01ff0005090299f780a50b4a32bb073160d9ffd9ac3a56b8848cbd4fca1a32f2e3b4bdda32601e028df8a2887b6fc40c8a5f8d71da9071e4ec7e73d3dfebc30f1ee2aac5c7fbd56aac020223c639861f1259cf41dcbccdac8e68f5194e9a15e7817accd97fbe52239d832cd0860302736caee707092c733eeea0b019fac896c0f66829c57815fd8b68e8c53ebd3ed8c09a0c02d62dd9aa3ca0b9c4dfa5361a9a908f2207a0dba415e46db5110eb7e60f61186121018790193f157f45d642de432da453be81b1f2d2d358757823c0f48e444859491d";
     uint32_t const GENESIS_NONCE = 10000;
 
     uint64_t const GOVERNANCE_REWARD_INTERVAL_IN_BLOCKS = ((60 * 60 * 24 * 7) / DIFFICULTY_TARGET_V2);
     std::string const GOVERNANCE_WALLET_ADDRESS[] =
     {
-      "UPX1YovsJSNQG886X5oZwnj5Hg9v7XVDXHYATDV5PnT4ZeFz1qcM1mo2kwT6EQeHSM7vm7fCWwYRaETeaHcpy3K81ucqjGdFna", // hardfork v7-10
-      "UPX1YovsJSNQG886X5oZwnj5Hg9v7XVDXHYATDV5PnT4ZeFz1qcM1mo2kwT6EQeHSM7vm7fCWwYRaETeaHcpy3K81ucqjGdFna", // hardfork v7-10
+      "WHAT1YovsJSNQG886X5oZwnj5Hg9v7XVDXHYATDV5PnT4ZeFz1qcM1mo2kwT6EQeHSM7vm7fCWwYRaETeaHcpy3K81ucqjGdFna", 
+// hardfork v7-10
+      "WHAT1YovsJSNQG886X5oZwnj5Hg9v7XVDXHYATDV5PnT4ZeFz1qcM1mo2kwT6EQeHSM7vm7fCWwYRaETeaHcpy3K81ucqjGdFna", 
+// hardfork v7-10
     };
 
   namespace testnet
@@ -219,9 +226,9 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 0x1d0b24;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 294;
 
-    uint16_t const P2P_DEFAULT_PORT = 22060;
-    uint16_t const RPC_DEFAULT_PORT = 22061;
-    uint16_t const ZMQ_RPC_DEFAULT_PORT = 22062;
+    uint16_t const P2P_DEFAULT_PORT = 25420;
+    uint16_t const RPC_DEFAULT_PORT = 25421;
+    uint16_t const ZMQ_RPC_DEFAULT_PORT = 25422;
 
     boost::uuids::uuid const NETWORK_ID = { {
         0x12 ,0xF1, 0x00, 0x61 , 0x71, 0x01 , 0x41, 0x61, 0x00, 0x31, 0x82, 0xA1, 0x12, 0x16, 0xA1, 0xA1
@@ -243,9 +250,9 @@ namespace config
     uint64_t const CRYPTONOTE_PUBLIC_INTEGRATED_ADDRESS_BASE58_PREFIX = 0xe5326;
     uint64_t const CRYPTONOTE_PUBLIC_SUBADDRESS_BASE58_PREFIX = 294;
 
-    uint16_t const P2P_DEFAULT_PORT = 23060;
-    uint16_t const RPC_DEFAULT_PORT = 23061;
-    uint16_t const ZMQ_RPC_DEFAULT_PORT = 23062;
+    uint16_t const P2P_DEFAULT_PORT = 26420;
+    uint16_t const RPC_DEFAULT_PORT = 26421;
+    uint16_t const ZMQ_RPC_DEFAULT_PORT = 26422;
 
     boost::uuids::uuid const NETWORK_ID = { {
         0x12 ,0xF1, 0x00, 0x61 , 0x71, 0x01 , 0x41, 0x61, 0x00, 0x31, 0x82, 0x30, 0x12, 0x16, 0xA1, 0xA1
