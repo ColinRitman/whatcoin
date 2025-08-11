@@ -1,9 +1,9 @@
 Gitian building
 ================
 
-*Setup instructions for a Gitian build of uPlexa using a VM or physical system.*
+*Setup instructions for a Gitian build of Whatcoin using a VM or physical system.*
 
-Gitian is the deterministic build process that is used to build the uPlexa CLI
+Gitian is the deterministic build process that is used to build the Whatcoin CLI
 executables. It provides a way to be reasonably sure that the
 executables are really built from the git source. It also makes sure that
 the same, tested dependencies are used and statically built into the executable.
@@ -117,7 +117,7 @@ Initial Gitian Setup
 The `gitian-build.py` script will checkout different release tags, so it's best to copy it to the top level directory:
 
 ```bash
-cp uplexa/contrib/gitian/gitian-build.py .
+cp whatcoin/contrib/gitian/gitian-build.py .
 ```
 
 ### Setup the required environment

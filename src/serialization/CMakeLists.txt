@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2018, uPlexa Team
+# Copyright (c) 2016-2018, Whatcoin Team
 # Copyright (c) 2014-2019, The Monero Project
 #
 # All rights reserved.

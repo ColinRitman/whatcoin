@@ -2133,7 +2133,7 @@ Pending or Failed:               &quot;failed&quot;|&quot;pending&quot;, &quot;o
 To start synchronizing with the daemon, use the &quot;refresh&quot; command.
 Use the &quot;help&quot; command to see the list of available commands.
 Use &quot;help &lt;command&gt;&quot; to see a command&apos;s documentation.
-Always use the &quot;exit&quot; command when closing uplexa-wallet-cli to save 
+Always use the &quot;exit&quot; command when closing whatcoin-wallet-cli to save 
 your current session&apos;s state. Otherwise, you might need to synchronize 
 your wallet again (your wallet keys are NOT at risk in any case).
 </source>
@@ -2141,7 +2141,7 @@ your wallet again (your wallet keys are NOT at risk in any case).
 Pour commencer la synchronisation avec le démon, utilisez la commande &quot;refresh&quot;.
 Utilisez la commande &quot;help&quot; pour voir la liste des commandes disponibles.
 Utilisez &quot;help &lt;commande&gt;&quot; pour voir la documentation d&apos;une commande.
-Utilisez toujours la commande &quot;exit&quot; pour fermer uplexa-wallet-cli pour sauvegarder 
+Utilisez toujours la commande &quot;exit&quot; pour fermer whatcoin-wallet-cli pour sauvegarder 
 l&apos;état de votre session. Sinon, vous pourriez avoir besoin de synchroniser 
 votre portefeuille à nouveau (mais les clés de votre portefeuille ne risquent rien).
 </translation>
@@ -3536,9 +3536,9 @@ subaddress-lookahead &lt;major&gt;:&lt;minor&gt;
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="5799"/>
-        <source>Donating %s %s to uPlexa Team
+        <source>Donating %s %s to Whatcoin Team
 // Copyright (c) 2014-2019, The Monero Project (donate.getmonero.org or %s).</source>
-        <translation>Don de %s %s à uPlexa Team
+        <translation>Don de %s %s à Whatcoin Team
 // Copyright (c) 2014-2019, The Monero Project (donate.getmonero.org ou %s).</translation>
     </message>
     <message>

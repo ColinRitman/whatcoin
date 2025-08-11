@@ -1094,9 +1094,9 @@ namespace cryptonote
     switch (std::atomic_load(&default_decimal_point))
     {
       case 2:
-        return "uplexa";
+        return "whatcoin";
       case 0:
-        return "muplexa";
+        return "mwhatcoin";
       default:
         ASSERT_MES_AND_THROW("Invalid decimal point specification: " << default_decimal_point);
     }

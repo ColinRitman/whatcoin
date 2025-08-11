@@ -101,7 +101,7 @@ namespace utility_nodes
       const std::shared_ptr<const quorum_state> state = m_core.get_quorum_state(m_last_height);
       if (!state)
       {
-        // TODO(uplexa): Fatal error
+        // TODO(whatcoin): Fatal error
         LOG_ERROR("Quorum state for height: " << m_last_height << "was not cached in daemon!");
         continue;
       }
