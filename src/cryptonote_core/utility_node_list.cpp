@@ -155,7 +155,7 @@ namespace utility_nodes
     const auto &it = m_quorum_states.find(height);
     if (it == m_quorum_states.end())
     {
-      // TODO(uPlexa): Not being able to find the quorum is going to be a fatal error.
+      // TODO(Whatcoin): Not being able to find the quorum is going to be a fatal error.
     }
     else
     {
@@ -304,7 +304,7 @@ namespace utility_nodes
 
     if (!state)
     {
-      // TODO(uPlexa): Not being able to find a quorum is fatal! We want better caching abilities.
+      // TODO(Whatcoin): Not being able to find a quorum is fatal! We want better caching abilities.
       LOG_ERROR("Quorum state for height: " << deregister.block_height << ", was not stored by the daemon");
       return false;
     }
@@ -1003,7 +1003,7 @@ namespace utility_nodes
     if (hard_fork_version < 13)
       return true;
 
-    // NOTE(uPlexa): Utility node reward distribution is calculated from the
+    // NOTE(Whatcoin): Utility node reward distribution is calculated from the
     // original amount, i.e. 20% of the original base reward goes to service
     // nodes not 20% of the reward after removing the governance component (the
     // adjusted base reward post hardfork 13).

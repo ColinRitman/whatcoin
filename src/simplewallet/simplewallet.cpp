@@ -151,7 +151,7 @@ namespace
   const command_line::arg_descriptor<bool> arg_non_deterministic = {"non-deterministic", sw::tr("Generate non-deterministic view and spend keys"), false};
   const command_line::arg_descriptor<bool> arg_allow_mismatched_daemon_version = {"allow-mismatched-daemon-version", sw::tr("Allow communicating with a daemon that uses a different RPC version"), false};
   const command_line::arg_descriptor<uint64_t> arg_restore_height = {"restore-height", sw::tr("Restore from specific blockchain height"), 0};
-  const command_line::arg_descriptor<bool> arg_do_not_relay = {"do-not-relay", sw::tr("The newly created transaction will not be relayed to the uplexa network"), false};
+  const command_line::arg_descriptor<bool> arg_do_not_relay = {"do-not-relay", sw::tr("The newly created transaction will not be relayed to the whatcoin network"), false};
   const command_line::arg_descriptor<bool> arg_create_address_file = {"create-address-file", sw::tr("Create an address file for new wallets"), false};
   const command_line::arg_descriptor<std::string> arg_subaddress_lookahead = {"subaddress-lookahead", tools::wallet2::tr("Set subaddress lookahead sizes to <major>:<minor>"), ""};
   const command_line::arg_descriptor<bool> arg_use_english_language_names = {"use-english-language-names", sw::tr("Display English language names"), false};
@@ -362,7 +362,7 @@ namespace
     std::stringstream prompt;
     prompt << sw::tr("For URL: ") << url
            << ", " << dnssec_str << std::endl
-           << sw::tr(" uPlexa Address = ") << addresses[0]
+           << sw::tr(" Whatcoin Address = ") << addresses[0]
            << std::endl
            << sw::tr("Is this OK? (Y/n) ")
     ;
@@ -1829,7 +1829,7 @@ bool simple_wallet::save_known_rings(const std::vector<std::string> &args)
 
 bool simple_wallet::version(const std::vector<std::string> &args)
 {
-  message_writer() << "uPlexa '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL << ")";
+      message_writer() << "Whatcoin '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL << ")";
   return true;
 }
 
@@ -2087,9 +2087,9 @@ bool simple_wallet::set_unit(const std::vector<std::string> &args/* = std::vecto
   const std::string &unit = args[1];
   unsigned int decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT;
 
-  if (unit == "uplexa")
+      if (unit == "whatcoin")
     decimal_point = CRYPTONOTE_DISPLAY_DECIMAL_POINT;
-  else if (unit == "muplexa")
+      else if (unit == "mwhatcoin")
     decimal_point = 0;
   else
   {
@@ -2513,12 +2513,12 @@ simple_wallet::simple_wallet()
                                   "auto-low-priority <1|0>\n "
                                   "  Whether to automatically use the low priority fee level when it's safe to do so.\n "
                                   "segregate-pre-fork-outputs <1|0>\n "
-                                  "  Set this if you intend to spend outputs on both uPlexa AND a key reusing fork.\n "
+                                  "  Set this if you intend to spend outputs on both Whatcoin AND a key reusing fork.\n "
                                   "key-reuse-mitigation2 <1|0>\n "
-                                  "  Set this if you are not sure whether you will spend on a key reusing uPlexa fork later.\n"
+                                  "  Set this if you are not sure whether you will spend on a key reusing Whatcoin fork later.\n"
                                   "subaddress-lookahead <major>:<minor>\n "
                                   "  Set the lookahead sizes for the subaddress hash table.\n "
-                                  "  Set this if you are not sure whether you will spend on a key reusing uPlexa fork later.\n "
+                                  "  Set this if you are not sure whether you will spend on a key reusing Whatcoin fork later.\n "
                                   "segregation-height <n>\n "
                                   "  Set to the height of a key reusing fork you want to use, 0 to use default."));
   m_cmd_binder.set_handler("encrypted_seed",
@@ -2803,7 +2803,7 @@ bool simple_wallet::set_variable(const std::vector<std::string> &args)
     CHECK_SIMPLE_VARIABLE("priority", set_default_priority, tr("0, 1, 2, 3, or 4, or one of ") << join_priority_strings(", "));
     CHECK_SIMPLE_VARIABLE("confirm-missing-payment-id", set_confirm_missing_payment_id, tr("0 or 1"));
     CHECK_SIMPLE_VARIABLE("ask-password", set_ask_password, tr("0|1|2 (or never|action|decrypt)"));
-    CHECK_SIMPLE_VARIABLE("unit", set_unit, tr("uplexa, muplexa"));
+    CHECK_SIMPLE_VARIABLE("unit", set_unit,         tr("whatcoin, mwhatcoin"));
     CHECK_SIMPLE_VARIABLE("min-outputs-count", set_min_output_count, tr("unsigned integer"));
     CHECK_SIMPLE_VARIABLE("min-outputs-value", set_min_output_value, tr("amount"));
     CHECK_SIMPLE_VARIABLE("merge-destinations", set_merge_destinations, tr("0 or 1"));
@@ -3750,7 +3750,7 @@ boost::optional<epee::wipeable_string> simple_wallet::new_wallet(const boost::pr
     "To start synchronizing with the daemon, use the \"refresh\" command.\n"
     "Use the \"help\" command to see the list of available commands.\n"
     "Use \"help <command>\" to see a command's documentation.\n"
-    "Always use the \"exit\" command when closing uplexa-wallet-cli to save \n"
+            "Always use the \"exit\" command when closing whatcoin-wallet-cli to save \n"
     "your current session's state. Otherwise, you might need to synchronize \n"
     "your wallet again (your wallet keys are NOT at risk in any case).\n")
   ;
@@ -4774,7 +4774,7 @@ bool simple_wallet::print_ring_members(const std::vector<tools::wallet2::pending
         ostr << tr(j == source.real_output ? " *" : " ") << res.outs[j].height;
       spent_key_height[i] = res.outs[source.real_output].height;
       spent_key_txid  [i] = res.outs[source.real_output].txid;
-      // visualize the distribution, using the code by moneroexamples onion-uplexa-viewer
+              // visualize the distribution, using the code by moneroexamples onion-whatcoin-viewer
       const uint64_t resolution = 79;
       std::string ring_str(resolution, '_');
       for (size_t j = 0; j < absolute_offsets.size(); ++j)
@@ -4981,7 +4981,7 @@ bool simple_wallet::transfer_main(int transfer_type, const std::vector<std::stri
     }
     else
     {
-      if (boost::starts_with(local_args[i], "uplexa:"))
+              if (boost::starts_with(local_args[i], "whatcoin:"))
         fail_msg_writer() << tr("Invalid last argument: ") << local_args.back() << ": " << error;
       else
         fail_msg_writer() << tr("Invalid last argument: ") << local_args.back();
@@ -6176,15 +6176,15 @@ bool simple_wallet::stake(const std::vector<std::string> &args_)
 
     if (amount_fraction == 0) // Fixed amount warning
     {
-      success_msg_writer(false/*color*/) << tr("You're autostaking to a utility node using a fixed amount of uplexa: ")
+              success_msg_writer(false/*color*/) << tr("You're autostaking to a utility node using a fixed amount of whatcoin: ")
           << print_money(amount)
           << tr(".\nThe staking requirement will be different after the utility node expires. Staking a fixed amount "
                 "may change your percentage of stake towards the utility node and consequently your block reward allocation.")
          << tr("\n\nIf this behaviour is not desirable, please reuse the staking command with a percentage sign.");
 
-      if (!input_line_and_parse_yes_no_result("Accept staking with a fixed amount of uplexa"))
+              if (!input_line_and_parse_yes_no_result("Accept staking with a fixed amount of whatcoin"))
       {
-        fail_msg_writer() << tr("Staking transaction with fixed uplexa specified cancelled.");
+                  fail_msg_writer() << tr("Staking transaction with fixed whatcoin specified cancelled.");
         return true;
       }
 
@@ -6960,7 +6960,7 @@ bool simple_wallet::donate(const std::vector<std::string> &args_)
   local_args.push_back(amount_str);
   if (!payment_id_str.empty())
     local_args.push_back(payment_id_str);
-  message_writer() << (boost::format(tr("Donating %s %s to The uPlexa Project (donate.uplexa.com or %s).")) % amount_str % cryptonote::get_unit(cryptonote::get_default_decimal_point()) % MONERO_DONATION_ADDR).str();
+          message_writer() << (boost::format(tr("Donating %s %s to The Whatcoin Project (donate.whatcoin.com or %s).")) % amount_str % cryptonote::get_unit(cryptonote::get_default_decimal_point()) % MONERO_DONATION_ADDR).str();
   transfer(local_args);
   return true;
 }
@@ -9552,12 +9552,12 @@ int main(int argc, char* argv[])
   bool should_terminate = false;
   std::tie(vm, should_terminate) = wallet_args::main(
    argc, argv,
-   "uplexa-wallet-cli [--wallet-file=<file>|--generate-new-wallet=<file>] [<COMMAND>]",
-    sw::tr("This is the command line uplexa wallet. It needs to connect to a uplexa\ndaemon to work correctly.\nWARNING: Do not reuse your uPlexa keys on another fork, UNLESS this fork has key reuse mitigations built in. Doing so will harm your privacy."),
+           "whatcoin-wallet-cli [--wallet-file=<file>|--generate-new-wallet=<file>] [<COMMAND>]",
+            sw::tr("This is the command line whatcoin wallet. It needs to connect to a whatcoin\ndaemon to work correctly.\nWARNING: Do not reuse your Whatcoin keys on another fork, UNLESS this fork has key reuse mitigations built in. Doing so will harm your privacy."),
     desc_params,
     positional_options,
     [](const std::string &s, bool emphasis){ tools::scoped_message_writer(emphasis ? epee::console_color_white : epee::console_color_default, true) << s; },
-    "uplexa-wallet-cli.log"
+            "whatcoin-wallet-cli.log"
   );
 
   if (!vm)

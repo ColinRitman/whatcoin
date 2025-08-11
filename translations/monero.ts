@@ -2477,7 +2477,7 @@ Pending or Failed:               &quot;failed&quot;|&quot;pending&quot;, &quot;o
 To start synchronizing with the daemon, use the &quot;refresh&quot; command.
 Use the &quot;help&quot; command to see the list of available commands.
 Use &quot;help &lt;command&gt;&quot; to see a command&apos;s documentation.
-Always use the &quot;exit&quot; command when closing uplexa-wallet-cli to save 
+Always use the &quot;exit&quot; command when closing whatcoin-wallet-cli to save 
 your current session&apos;s state. Otherwise, you might need to synchronize 
 your wallet again (your wallet keys are NOT at risk in any case).
 </source>
@@ -3428,7 +3428,7 @@ Transaction </source>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="5799"/>
-        <source>Donating %s %s to uPlexa Team
+        <source>Donating %s %s to Whatcoin Team
 // Copyright (c) 2014-2019, The Monero Project (donate.getmonero.org or %s).</source>
         <translation type="unfinished"></translation>
     </message>

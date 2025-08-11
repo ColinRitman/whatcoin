@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2020, The uPlexa Team
+// Copyright (c) 2018-2020, The Whatcoin Team
 //
 // All rights reserved.
 //

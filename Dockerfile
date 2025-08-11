@@ -133,14 +133,14 @@ RUN set -ex && \
 COPY --from=builder /src/build/release/bin /usr/local/bin/
 
 # Contains the blockchain
-VOLUME /root/.uplexa
+VOLUME /root/.whatcoin
 
 # Generate your wallet via accessing the container and run:
 # cd /wallet
-# uplexa-wallet-cli
+# whatcoin-wallet-cli
 VOLUME /wallet
 
 EXPOSE 21060
 EXPOSE 21061
 
-ENTRYPOINT ["uplexad", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=21060", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=21061", "--non-interactive", "--confirm-external-bind"]
+ENTRYPOINT ["whatcoind", "--p2p-bind-ip=0.0.0.0", "--p2p-bind-port=21060", "--rpc-bind-ip=0.0.0.0", "--rpc-bind-port=21061", "--non-interactive", "--confirm-external-bind"]

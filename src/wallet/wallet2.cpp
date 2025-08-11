@@ -102,9 +102,9 @@ using namespace cryptonote;
 #define CHACHA8_KEY_TAIL 0x8c
 #define CACHE_KEY_TAIL 0x8d
 
-#define UNSIGNED_TX_PREFIX "uPlexa unsigned tx set\004"
-#define SIGNED_TX_PREFIX "uPlexa signed tx set\004"
-#define MULTISIG_UNSIGNED_TX_PREFIX "uPlexa multisig unsigned tx set\001"
+#define UNSIGNED_TX_PREFIX "Whatcoin unsigned tx set\004"
+#define SIGNED_TX_PREFIX "Whatcoin signed tx set\004"
+#define MULTISIG_UNSIGNED_TX_PREFIX "Whatcoin multisig unsigned tx set\001"
 
 #define RECENT_OUTPUT_RATIO (0.5) // 50% of outputs are from the recent zone
 #define RECENT_OUTPUT_DAYS (1.8) // last 1.8 day makes up the recent zone (taken from monerolink.pdf, Miller et al)
@@ -118,11 +118,11 @@ using namespace cryptonote;
 #define SUBADDRESS_LOOKAHEAD_MAJOR 50
 #define SUBADDRESS_LOOKAHEAD_MINOR 200
 
-#define KEY_IMAGE_EXPORT_FILE_MAGIC "uPlexa key image export\002"
+#define KEY_IMAGE_EXPORT_FILE_MAGIC "Whatcoin key image export\002"
 
-#define MULTISIG_EXPORT_FILE_MAGIC "uPlexa multisig export\001"
+#define MULTISIG_EXPORT_FILE_MAGIC "Whatcoin multisig export\001"
 
-#define OUTPUT_EXPORT_FILE_MAGIC "uPlexa output export\003"
+#define OUTPUT_EXPORT_FILE_MAGIC "Whatcoin output export\003"
 
 #define SEGREGATION_FORK_HEIGHT 99999999
 #define TESTNET_SEGREGATION_FORK_HEIGHT 99999999
@@ -141,7 +141,7 @@ namespace
   std::string get_default_ringdb_path()
   {
     boost::filesystem::path dir = tools::get_default_data_dir();
-    // remove .uplexa, replace with .shared-ringdb
+    // remove .whatcoin, replace with .shared-ringdb
     dir = dir.remove_filename();
     dir /= ".shared-ringdb";
     return dir.string();
@@ -1455,7 +1455,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
   // stored into m_transfers so we cannot determine if the entry in m_transfers
   // came from this transaction or a previous transaction.
 
-  // TODO(uplexa): This case might be feasible at all where a key image is
+      // TODO(whatcoin): This case might be feasible at all where a key image is
   // duplicated in the _same_ tx in different output indexes, because the
   // algorithm for making a key image uses the output index. Investigate, and if
   // it's not feasible to construct a malicious one without absolutely breaking
@@ -2697,7 +2697,7 @@ void wallet2::refresh(bool trusted_daemon, uint64_t start_height, uint64_t & blo
 {
   if(m_light_wallet) {
 
-    // Myuplexa get_address_info needs to be called occasionally to trigger wallet sync.
+    // Mywhatcoin get_address_info needs to be called occasionally to trigger wallet sync.
     // This call is not really needed for other purposes and can be removed if mymonero changes their backend.
     cryptonote::COMMAND_RPC_GET_ADDRESS_INFO::response res;
 
@@ -11811,7 +11811,7 @@ std::string wallet2::make_uri(const std::string &address, const std::string &pay
     }
   }
 
-  std::string uri = "uplexa:" + address;
+      std::string uri = "whatcoin:" + address;
   unsigned int n_fields = 0;
 
   if (!payment_id.empty())
@@ -11840,9 +11840,9 @@ std::string wallet2::make_uri(const std::string &address, const std::string &pay
 //----------------------------------------------------------------------------------------------------
 bool wallet2::parse_uri(const std::string &uri, std::string &address, std::string &payment_id, uint64_t &amount, std::string &tx_description, std::string &recipient_name, std::vector<std::string> &unknown_parameters, std::string &error)
 {
-  if (uri.substr(0, 7) != "uplexa:")
+      if (uri.substr(0, 8) != "whatcoin:")
   {
-    error = std::string("URI has wrong scheme (expected \"uplexa:\"): ") + uri;
+          error = std::string("URI has wrong scheme (expected \"whatcoin:\"): ") + uri;
     return false;
   }
 
